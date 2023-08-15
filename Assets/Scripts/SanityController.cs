@@ -33,9 +33,13 @@ public class SanityController : MonoBehaviour
         }
         else
             sanityCanvasGroup.alpha = Mathf.Lerp(sanityCanvasGroup.alpha, 1, Time.deltaTime * 5);
+
+
+    }
+
+    private void LateUpdate()
+    {
         UpdateSanity();
-
-
     }
 
     private void UpdateSanity()
@@ -96,45 +100,45 @@ public class SanityController : MonoBehaviour
     private bool IsLightWithinScreenSpace()
     {
         Light[] lights = FindObjectsOfType<Light>();
-
         Camera mainCamera = Camera.main;
+
         foreach (Light light in lights)
         {
-            if (!light.enabled) return false; // Skip inactive lights
+            if (!light.enabled) continue;  // Skip inactive lights
 
             Vector3 lightViewportPos = mainCamera.WorldToViewportPoint(light.transform.position);
-
             Vector3 playerToLight = light.transform.position - transform.position;
-            float angle = Vector3.Angle(playerToLight, transform.position);
+
+
+            Vector3 lightDirection = light.transform.forward;
+            Vector3 lightToPlayer = transform.position - light.transform.position;
+
+            float angleBetween = Vector3.Angle(lightDirection, lightToPlayer);
+
+            if (angleBetween <= light.spotAngle * 0.5f) // Using half of spotAngle
+            {
+                inLightedArea = true;
+                return true;
+            }
 
             if (lightViewportPos.x >= 0 && lightViewportPos.x <= 1 && lightViewportPos.y >= 0 && lightViewportPos.y <= 1 && lightViewportPos.z > 0)
             {
                 // Check for obstacles between the camera and light source
-                Ray ray = new Ray(mainCamera.transform.position, light.transform.position - mainCamera.transform.position);
+                Ray ray = new Ray(mainCamera.transform.position, playerToLight.normalized);
 
                 RaycastHit hit;
-                if (Physics.Linecast(Camera.main.transform.position, light.transform.position, out hit) && hit.collider.gameObject != light.gameObject)
+                if (!Physics.Raycast(ray, out hit) || hit.collider.gameObject == light.gameObject || hit.distance > playerToLight.magnitude)
                 {
-                    continue; // Skip if there is an obstacle between the camera and light source
+                    return true;  // A light source is within the screen space and not obstructed by obstacles
                 }
-
-                return true; // A light source is within the screen space and not obstructed by obstacles
             }
 
-            if (angle <= light.spotAngle)
-            {
-                inLightedArea = true;
-                return true; // Player is within the spot angle of the light
-            }
-            else
-            {
-                inLightedArea = false;
-            }
-
+            inLightedArea = false;  // If we reached this point in the loop, we're not in a lighted area
         }
 
-        return false; // No light source is within the screen space
+        return false;  // No light source is within the screen space
     }
+
 
     private bool IsObjectObstructed(Vector3 fromPosition, Vector3 toPosition)
     {

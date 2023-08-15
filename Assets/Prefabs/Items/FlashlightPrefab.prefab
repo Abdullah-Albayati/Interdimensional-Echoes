@@ -26,14 +26,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3216836683877922246}
-  m_LocalRotation: {x: -0.7071058, y: -0, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 0, y: 0.0886, z: -0}
+  m_LocalRotation: {x: -0.70710784, y: -0, z: -0, w: -0.7071058}
+  m_LocalPosition: {x: 0, y: -0.0868, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6275352008757982545}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -270, y: 0, z: 0}
 --- !u!108 &6999902758022999199
 Light:
   m_ObjectHideFlags: 0
@@ -133,6 +133,9 @@ MonoBehaviour:
   flashLightBattery: 100
   decreaseRate: 1
   batteryTxt: {fileID: 0}
+  player: {fileID: 0}
+  delay: 0
+  followNow: 0
 --- !u!1 &6270683751888742345
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,15 +166,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6270683751888742345}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.74961, y: 1.993, z: 6.8952}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 819755743651616618}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &6301440371392709563
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -179,7 +182,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6270683751888742345}
-  m_Mesh: {fileID: 4300000, guid: 9a3b57f0a1248be419dd9c4d54748512, type: 3}
+  m_Mesh: {fileID: 2584093662464022575, guid: 042c01e3de2a8cd429991603b7def514, type: 3}
 --- !u!23 &6293684732909697027
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -193,17 +196,18 @@ MeshRenderer:
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
+  m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 930adfdfdd9fafd469ffb427a452359d, type: 2}
-  - {fileID: 2100000, guid: 140db2315bb006848a12d719229080a3, type: 2}
-  - {fileID: 2100000, guid: 0eb0f996ba805c34c9e5dc4df46deb6b, type: 2}
-  - {fileID: 2100000, guid: bb59d9535c521eb48994e16487f7b2b9, type: 2}
+  - {fileID: 2100000, guid: 81909ffcfc009094fa90f5211eca053f, type: 2}
+  - {fileID: 2100000, guid: 5f8feaa8637de8c40b34acbae6a7a78f, type: 2}
+  - {fileID: 2100000, guid: 5e408d2d21ab8434eb4d6f0ee4c93329, type: 2}
+  - {fileID: 2100000, guid: 0dfef97aa58c3c948b0f54b25f9e4ef1, type: 2}
+  - {fileID: 2100000, guid: 3ea0cb3bd8cb5fe449a0e0d6a221ec23, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -215,7 +219,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
+  m_StitchLightmapSeams: 1
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -272,8 +276,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.072043225, y: 0.23057182, z: 0.0731546}
-  m_Center: {x: -0.000000020489097, y: 0, z: 0}
+  m_Size: {x: 0.02773211, y: 0.13142626, z: 0.027732115}
+  m_Center: {x: 0.00000005029142, y: 0.010203177, z: 0.000000023748726}
 --- !u!82 &95363277335147649
 AudioSource:
   m_ObjectHideFlags: 0

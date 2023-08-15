@@ -38,7 +38,7 @@ public class PickableObject : MonoBehaviour
             Quaternion initialRot = gameObject.transform.rotation;
             if (ObjectType == ObjectType.FlashLight)
             {
-                gameObject.transform.rotation = initialRot * Quaternion.Euler(90f, 0, 0);
+                gameObject.transform.rotation = initialRot * Quaternion.Euler(-90f, 0, 0);
             }
             else if (ObjectType == ObjectType.Batteries)
             {

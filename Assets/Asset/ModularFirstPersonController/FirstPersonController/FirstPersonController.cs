@@ -355,7 +355,6 @@ public class FirstPersonController : MonoBehaviour,IGameObserver
             {
                 Crouch();
             }
-            Debug.Log(CanUnCrouch());
             if(Input.GetButtonDown(GameManager.instance.crouchButton) && holdToCrouch)
             {
                 isCrouched = false;

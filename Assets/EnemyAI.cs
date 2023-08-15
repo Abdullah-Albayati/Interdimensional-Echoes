@@ -18,8 +18,8 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent agent;
     public EnemyState currentState;
     bool isPlayerDetected;
-    private float wanderRadius = 50.0f;  // The range within which the enemy will pick a new random destination.
-    private float wanderTimer = 0;
+    private float wanderRadius = 20.0f;  // The range within which the enemy will pick a new random destination.
+    private float wanderTimer = 5f;
 
     private float timer;
 
@@ -40,7 +40,7 @@ public class EnemyAI : MonoBehaviour
     {
         DetectPlayer();
         switch (currentState)
-            {
+        {
                 case EnemyState.Idle:
                 Debug.Log($"Patrolling");
                 timer += Time.deltaTime;
@@ -71,16 +71,15 @@ public class EnemyAI : MonoBehaviour
                 break;
 
                 case EnemyState.Searching:
-                if(isPlayerDetected == false)
-                {
-                    agent.SetDestination(playerLastSeenPos);
 
-                    if (agent.remainingDistance <= 0.1f) // "1f" can be a threshold value you decide.
+                   agent.SetDestination(playerLastSeenPos);
+
+                    if ( !agent.pathPending && agent.remainingDistance <= 1f) // "1f" can be a threshold value you decide.
                     {
                         currentState = EnemyState.Idle;
                         Debug.Log("Finished Searching. Player not found.");
                     }
-                } 
+                
                 break;
 
                 case EnemyState.Investigating:
@@ -89,9 +88,7 @@ public class EnemyAI : MonoBehaviour
                 case EnemyState.Attack:
                     // Attack behavior here
                     break;
-            }
-        
-
+        }
     }
 
     public static Vector3 RandomNavSphere(Vector3 origin, float distance, int layermask)
