@@ -16,7 +16,7 @@ public class HidingController : MonoBehaviour
 
     private FirstPersonController playerController;
     private Rigidbody playerRigidbody;
-
+    [SerializeField] private AudioClip lockerSound;
 
     private void Start()
     {
@@ -53,6 +53,7 @@ public class HidingController : MonoBehaviour
     private IEnumerator EnterOrExitLocker()
     {
         yield return StartCoroutine(FadeToBlack());
+        player.GetComponent<AudioSource>().PlayOneShot(lockerSound);
         Transform targetPoint;
         if (IsInsideLocker)
         {
@@ -67,6 +68,7 @@ public class HidingController : MonoBehaviour
             IsInsideLocker = true;
             playerController.playerCanMove = false;
             playerController.cameraCanMove= false;
+       
         }
         transform.position = targetPoint.position;
         transform.rotation = targetPoint.rotation;
@@ -79,7 +81,8 @@ public class HidingController : MonoBehaviour
     {
         float duration = 0.5f;
         float elapsed = 0;
-
+        playerController.playerCanMove = false;
+        playerController.cameraCanMove = false;
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
@@ -87,6 +90,7 @@ public class HidingController : MonoBehaviour
             fadeImage.color = new Color(0, 0, 0, alpha);
             yield return null;
         }
+       
         fadeImage.color = new Color(0, 0, 0, 1);
     }
 

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class RecordingButton : MonoBehaviour
 {
-    private AudioClip recording;
+   [SerializeField] private AudioClip recording;
 
     public void Initialize(AudioClip recording)
     {
