@@ -18,8 +18,8 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent agent;
     public EnemyState currentState;
     bool isPlayerDetected;
-    private float wanderRadius = 20.0f;  // The range within which the enemy will pick a new random destination.
-    private float wanderTimer = 5f;
+    [SerializeField] private float wanderRadius = 20.0f;  // The range within which the enemy will pick a new random destination.
+    [SerializeField] private float wanderTimer = 5f;
 
     private float timer;
 
@@ -34,6 +34,8 @@ public class EnemyAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         currentState = EnemyState.Idle;
+        agent.speed = creatureData.speed;
+        timer = wanderTimer;
     }
 
     private void Update()
@@ -44,7 +46,7 @@ public class EnemyAI : MonoBehaviour
                 case EnemyState.Idle:
                 Debug.Log($"Patrolling");
                 timer += Time.deltaTime;
-
+                
                 if (timer >= wanderTimer) 
                 {
                     Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
@@ -74,7 +76,7 @@ public class EnemyAI : MonoBehaviour
 
                    agent.SetDestination(playerLastSeenPos);
 
-                    if ( !agent.pathPending && agent.remainingDistance <= 1f) // "1f" can be a threshold value you decide.
+                    if ( !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance) // "1f" can be a threshold value you decide.
                     {
                         currentState = EnemyState.Idle;
                         Debug.Log("Finished Searching. Player not found.");

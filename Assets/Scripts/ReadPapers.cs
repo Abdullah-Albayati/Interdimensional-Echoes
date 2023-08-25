@@ -30,7 +30,6 @@ public class ReadPapers : MonoBehaviour
         }*/
 
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-       var player = gameObject.GetComponent<FirstPersonController>();
 
         RaycastHit hit;
 

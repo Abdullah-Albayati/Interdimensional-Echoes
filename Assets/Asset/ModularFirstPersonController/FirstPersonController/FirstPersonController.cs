@@ -132,11 +132,14 @@ public class FirstPersonController : MonoBehaviour,IGameObserver
 
     #endregion
 
+    private Animator animator;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         coll = GetComponent<CapsuleCollider>();
         crosshairObject = GetComponentInChildren<Image>();
+        animator = GetComponent<Animator>();
 
         // Set internal variables
         playerCamera.fieldOfView = fov;
@@ -149,6 +152,7 @@ public class FirstPersonController : MonoBehaviour,IGameObserver
             sprintRemaining = sprintDuration;
             sprintCooldownReset = sprintCooldown;
         }
+
     }
 
 
@@ -212,12 +216,11 @@ public class FirstPersonController : MonoBehaviour,IGameObserver
 
     private void Update()
     {
-        //Check if time scale is 0,disable everything
 
         #region Camera
 
         // Control camera movement
-        if(cameraCanMove)
+        if (cameraCanMove)
         {
             yaw = transform.localEulerAngles.y + Input.GetAxis(GameManager.instance.cameraHorizontal) * mouseSensitivity;
 

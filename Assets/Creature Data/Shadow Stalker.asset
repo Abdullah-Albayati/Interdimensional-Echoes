@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatureName: Shadow Stalker
   description: Nothing
-  speed: 0
+  speed: 5
   canPassThroughDoors: 1
   isFasterInDarkness: 1
   speedIncreaseInDarkness: 0
