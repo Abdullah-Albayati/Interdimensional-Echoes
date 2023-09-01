@@ -5,16 +5,28 @@ using TMPro;
 
 public class ListEntries : MonoBehaviour
 {
-    public GameObject entryPrefab; // Prefab for the entry game object
-    public Transform entriesParent; // Parent transform for the instantiated entries
-    [SerializeField] private RecordingPlayer recordingPlayer; // Reference to the RecordingPlayer script
+    [SerializeField] private GameObject entryPrefab;
+    [SerializeField] private Transform entriesParent; 
+    [SerializeField] private RecordingPlayer recordingPlayer; 
 
+    private PickableObject recordingObj;
     private List<GameObject> instantiatedEntries = new List<GameObject>();
 
-    private void Start()
+    private void Awake()
     {
-        recordingPlayer = FindObjectOfType<RecordingPlayer>();
-        ListRecordings();
+        if (!recordingPlayer)
+            recordingPlayer = FindObjectOfType<RecordingPlayer>();
+
+        if (recordingPlayer)
+            recordingObj = recordingPlayer.GetComponent<PickableObject>();
+    }
+
+    private void Update()
+    {
+        if (recordingObj && recordingObj.IsPickedUp && Input.GetButtonDown(GameManager.instance.openVoiceRecordingsButton))
+        {
+            UIManager.Instance.ToggleGameUI(UIManager.UIType.VoiceRecordings);
+        }
     }
     public void ListRecordings()
     {
@@ -34,12 +46,12 @@ public class ListEntries : MonoBehaviour
             RecordingButton recordingButton = entryObject.GetComponent<RecordingButton>();
             if (recordingButton != null)
             {
-                recordingButton.Initialize(recording.clip);
+                recordingButton.Initialize(recording.clip, recording.sub);
             }
             else
             {
                 recordingButton = entryObject.AddComponent<RecordingButton>();
-                recordingButton.Initialize(recording.clip);
+                recordingButton.Initialize(recording.clip,recording.sub);
             }
 
             TextMeshProUGUI entryText = entryObject.GetComponentInChildren<TextMeshProUGUI>();

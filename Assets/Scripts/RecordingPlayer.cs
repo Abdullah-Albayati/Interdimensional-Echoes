@@ -6,6 +6,7 @@ public class SavedRecording
 {
     public AudioClip clip;
     public string name;
+    public List<Subtitles> sub = new List<Subtitles>();
 }
 
 public class RecordingPlayer : MonoBehaviour,IGameObserver
@@ -24,29 +25,13 @@ public class RecordingPlayer : MonoBehaviour,IGameObserver
 
     private void Update()
     {
-        if (currentItem.IsPickedUp)
+        if(!hasPlayed && currentItem.IsPickedUp)
         {
-            //Change this code block position later
-            if (Input.GetButtonDown(GameManager.instance.openVoiceRecordingsButton))
-            {
-                UIManager.Instance.OpenVoiceRecordingsMenu();   
-            }
-            
-        }
-
-
-        if (!hasPlayed && currentItem.IsPickedUp)
-        {
-            PlayRecording();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            StopRecording();
+            SaveRecording();
         }
     }
 
-    private void PlayRecording()
+    private void SaveRecording()
     {
         recordingObject = transform.parent.GetComponentInChildren<RecordingObject>();
 
@@ -55,27 +40,12 @@ public class RecordingPlayer : MonoBehaviour,IGameObserver
             AudioClip recording = recordingObject.GetRecording();
             if (recording != null)
             {
-                VocalsManager.Instance.Say(recording);
-                StartCoroutine(VocalsManager.Instance.TheSequence(recordingObject));
 
-                StartCoroutine(WaitForClipToEnd(recording));
-                hasPlayed = true;
+                savedRecordings.Add(new SavedRecording { clip = recording, name = recordingObject.recordingName,sub = recordingObject.sub});
+                vocalRecordingsCanvas.ListRecordings();
+                Destroy(recordingObject.gameObject);
+                hasPlayed = false;
             }
-        }
-    }
-
-    private void StopRecording()
-    {
-        if (VocalsManager.Instance.source.isPlaying)
-        {
-            VocalsManager.Instance.source.Stop();
-            VocalsManager.Instance.StopCoroutine(VocalsManager.Instance.TheSequence(recordingObject));
-
-            StartCoroutine(WaitForClipToEnd(recordingObject.GetRecording()));
-            StopCoroutine(VocalsManager.Instance.TheSequence(recordingObject));
-            savedRecordings.Add(new SavedRecording { clip = VocalsManager.Instance.source.clip, name = recordingObject.recordingName });
-            Destroy(recordingObject.gameObject);
-            hasPlayed = false;
         }
     }
 
@@ -93,18 +63,4 @@ public class RecordingPlayer : MonoBehaviour,IGameObserver
 
     }
 
-    private System.Collections.IEnumerator WaitForClipToEnd(AudioClip clip)
-    {
-        yield return new WaitForSeconds(clip.length);
-
-        if (VocalsManager.Instance.source.isPlaying)
-        {
-            VocalsManager.Instance.source.Stop();
-        }
-
-        savedRecordings.Add(new SavedRecording { clip = clip, name = recordingObject.recordingName });
-        vocalRecordingsCanvas.ListRecordings();
-        Destroy(recordingObject.gameObject);
-        hasPlayed = false;
-    }
 }

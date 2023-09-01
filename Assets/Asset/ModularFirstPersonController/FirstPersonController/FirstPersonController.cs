@@ -112,7 +112,7 @@ public class FirstPersonController : MonoBehaviour,IGameObserver
     public float speedReduction = .5f;
 
     // Internal Variables
-    private bool isCrouched = false;
+    public bool isCrouched { get; private set; } = false;
     private Vector3 originalScale;
     private float originalHeight = 2;
 
@@ -491,7 +491,7 @@ public class FirstPersonController : MonoBehaviour,IGameObserver
         }
     }
 
-    private void Crouch()
+    public void Crouch()
     {
         // Stands player up to full height
         // Brings walkSpeed back up to original speed
@@ -550,7 +550,7 @@ public class FirstPersonController : MonoBehaviour,IGameObserver
     {
         // Cast a raycast above the player to check for obstacles
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.up, out hit, 2))
+        if (Physics.Raycast(transform.position, Vector3.up, out hit, 1.5f))
         {
             // If the raycast hits something, return false
             return false;

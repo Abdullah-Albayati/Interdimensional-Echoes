@@ -28,12 +28,10 @@ public class PaperScript : MonoBehaviour
         textGo = panelContainer.GetComponentInChildren<TMP_Text>();
         textGo.color = textColor;
         textGo.text = paperText;
-        GameManager.instance.PauseGame();
     }
     public void LeavePaper()
     {
         panelContainer.transform.SetChildrenActive(false);
         textGo = null;
-        GameManager.instance.ResumeGame();
     }
 }

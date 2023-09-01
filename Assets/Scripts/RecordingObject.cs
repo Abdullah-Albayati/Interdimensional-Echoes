@@ -19,10 +19,6 @@ public class RecordingObject : MonoBehaviour
     {
         currentItem = GetComponent<PickableObject>();
     }
-    private void Update()
-    {
-        
-    }
     public AudioClip GetRecording()
     {
         return recording;

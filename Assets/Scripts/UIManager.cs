@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -23,89 +25,94 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public GameObject voiceRecordingsMenuUI, journalMenuUI,paperMenuUI;
+    public List<GameObject> externalUI = new List<GameObject>();
+    public List<GameObject> playerUi = new List<GameObject>();
+
+    public enum UIType
+    {
+        VoiceRecordings,
+        Journal,
+        Paper
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        foreach (GameObject obj in externalUI)
+        {
+            obj.SetActive(false);
+        }
+    }
+
+    public void TogglePlayerUI(bool toggle)
+    {
+        foreach (GameObject ui in playerUi)
+        {
+            ui.SetActive(toggle);
+        }
+    }
+
+    public void ToggleGameUI(UIType uiType)
+    {
+        for (int i = 0; i < externalUI.Count; i++)
+        {
+            if (i != (int)uiType)
+            {
+                externalUI[i].SetActive(false);
+               
+            }
+            else
+            {
+                bool isActive = externalUI[i].activeSelf;
+                externalUI[i].SetActive(!isActive);
+                StartCoroutine(FadeIn(externalUI[i].gameObject.GetComponent<CanvasGroup>()));
+                if (!isActive)
+                {
+                    GameManager.instance.PauseGame();
+                    SetCursorState(CursorLockMode.Confined);
+                    TogglePlayerUI(false);
+
+                }
+                else
+                {
+                    GameManager.instance.ResumeGame();
+                    TogglePlayerUI(true);
+                    SetCursorState(CursorLockMode.Locked);
+                }
+            }
+        }
+    }
+
+    private void SetCursorState(CursorLockMode state)
+    {
+        Cursor.lockState = state;
+    }
+
+    private IEnumerator FadeIn(CanvasGroup group)
+    {
+        float duration = 0.2f;
+        float elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float alpha = Mathf.Lerp(0,1, elapsed / duration);
+            group.alpha = alpha;
+            yield return null;
+        }
+        group.alpha = 1.0f;
+    }
+
+
     
-
-    private void Start()
-    {
-        // Close both menus when the game starts
-        CloseVoiceRecordingsMenu();
-        CloseJournalMenu();
-        ClosePaperMenu();
-    }
-
-    private void Update()
-    {
-        if (voiceRecordingsMenuUI.activeInHierarchy || journalMenuUI.activeInHierarchy || paperMenuUI.activeInHierarchy)
-        {
-            Cursor.lockState = CursorLockMode.Confined;
-        }
-        else
-            Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    public void OpenVoiceRecordingsMenu()
-    {
-        if (!voiceRecordingsMenuUI.activeSelf)
-        {
-            voiceRecordingsMenuUI.SetActive(true);
-            journalMenuUI.SetActive(false);
-            paperMenuUI.SetActive(false);
-            GameManager.instance.PauseGame();
-        }
-        else
-            CloseVoiceRecordingsMenu();
-    }
-
-    public void CloseVoiceRecordingsMenu()
-    {
-        if (voiceRecordingsMenuUI.activeSelf)
-        {
-            voiceRecordingsMenuUI.SetActive(false);
-            GameManager.instance.ResumeGame();
-        }
-    }
-
-    public void OpenJournalMenu()
-    {
-        if (!journalMenuUI.activeSelf)
-        {
-            journalMenuUI.SetActive(true);
-            voiceRecordingsMenuUI.SetActive(false);
-            paperMenuUI.SetActive(false);
-
-            GameManager.instance.PauseGame();
-        }
-        else CloseJournalMenu();
-    }
-
-    public void CloseJournalMenu()
-    {
-        if (journalMenuUI.activeSelf)
-        {
-            journalMenuUI.SetActive(false);
-            GameManager.instance.ResumeGame();
-        }
-    }
-    public void OpenPaperMenu()
-    {
-        if (!paperMenuUI.activeSelf)
-        {
-            paperMenuUI.SetActive(true);
-            journalMenuUI.SetActive(false);
-            voiceRecordingsMenuUI.SetActive(false);
-
-            GameManager.instance.PauseGame();
-        }
-        else ClosePaperMenu();
-    }
-
-    public void ClosePaperMenu()
-    {
-        if (paperMenuUI.activeSelf)
-        {
-        paperMenuUI.SetActive(false);
-        GameManager.instance.ResumeGame();
-        }
-    }
 }

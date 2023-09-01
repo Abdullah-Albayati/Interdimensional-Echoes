@@ -79,7 +79,7 @@ public class JournalController : MonoBehaviour, IGameObserver
 
         if (Input.GetButtonDown(GameManager.instance.openJournalButton))
         {
-            UIManager.Instance.OpenJournalMenu();
+            UIManager.Instance.ToggleGameUI(UIManager.UIType.Journal);
         }
     }
     private void DisplayJournalPage(int pageIndex)

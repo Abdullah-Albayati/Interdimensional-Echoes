@@ -8,15 +8,16 @@ public class HidingController : MonoBehaviour
 
     public bool IsInsideLocker { get; private set; }
 
-   [SerializeField] private GameObject currentLocker;
+   [SerializeField] private LockerScript currentLocker;
 
-    [SerializeField] GameObject player;
-    [SerializeField] Transform lockerSpawnPoint;
+    [SerializeField] GameObject player,playerHand;
     [SerializeField] float hidingDistance;
 
     private FirstPersonController playerController;
     private Rigidbody playerRigidbody;
     [SerializeField] private AudioClip lockerSound;
+
+    private Transform[] lockerPoints;
 
     private void Start()
     {
@@ -34,7 +35,7 @@ public class HidingController : MonoBehaviour
 
             if (hitObject.CompareTag("HidingLocker"))
             {
-                currentLocker = hitObject.transform.parent.parent.gameObject;
+                currentLocker = hitObject.GetComponent<LockerScript>();
                 if (Input.GetButtonDown(GameManager.instance.interactButton) && playerRigidbody.velocity.magnitude < 0.1f)
                 {
                     StartCoroutine(EnterOrExitLocker());
@@ -52,28 +53,43 @@ public class HidingController : MonoBehaviour
 
     private IEnumerator EnterOrExitLocker()
     {
+        GameManager.instance.isInputDisabled = true;
         yield return StartCoroutine(FadeToBlack());
         player.GetComponent<AudioSource>().PlayOneShot(lockerSound);
         Transform targetPoint;
         if (IsInsideLocker)
         {
-            targetPoint = currentLocker.transform.Find("OutsidePoint");
+            targetPoint = currentLocker.outsidePoint;
             IsInsideLocker = false;
             playerController.cameraCanMove = true;
             playerController.playerCanMove = true;
+            playerController.enableCrouch = true;
+            currentLocker.isOccupied = false;
+            UIManager.Instance.TogglePlayerUI(true);
+            playerHand.SetActive(true);
         }
         else
         {
-            targetPoint = currentLocker.transform.Find("InsidePoint");
+            var randPos = Random.Range(0,currentLocker.insidePoints.Length);
+            targetPoint = currentLocker.insidePoints[randPos];
             IsInsideLocker = true;
             playerController.playerCanMove = false;
             playerController.cameraCanMove= false;
-       
+            playerController.enableCrouch = false;
+            currentLocker.isOccupied = true;
+            UIManager.Instance.TogglePlayerUI(false);
+            playerHand.SetActive(false);
+            if (playerController.isCrouched)
+            {
+                playerController.Crouch();
+            } 
         }
         transform.position = targetPoint.position;
         transform.rotation = targetPoint.rotation;
         Camera.main.transform.rotation = targetPoint.rotation;
+        GameManager.instance.isInputDisabled = false;
         yield return StartCoroutine(FadeFromBlack());
+        
     }
 
 

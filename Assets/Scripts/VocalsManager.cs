@@ -8,8 +8,10 @@ public class VocalsManager : MonoBehaviour
     public static VocalsManager Instance;
     public AudioSource source;
     public TMPro.TextMeshProUGUI subText;
-    
-    
+    public GameObject vocalRecordingsPanel;
+    private AudioClip currentAudioPlaying;
+    public Coroutine currentSubtitleCoroutine;
+
     private void Awake()
     {
         Instance = this;
@@ -20,28 +22,49 @@ public class VocalsManager : MonoBehaviour
         source = GetComponent<AudioSource>();
         subText.text = string.Empty;
     }
-
-    private void Update()
-    {
-        
-    }
     public void Say(AudioClip clip)
     {
         if (source.isPlaying)
+        {
             source.Stop();
+        }
 
-        source.PlayOneShot(clip);
+        if (currentSubtitleCoroutine != null)
+        {
+            StopCoroutine(currentSubtitleCoroutine);
+            currentSubtitleCoroutine = null;
+        }
+
+        currentAudioPlaying = clip;
+        source.clip = clip;
+        source.Play();
     }
 
-    public IEnumerator TheSequence(RecordingObject obj)
+    private void Update()
     {
-        for (int i = 0; i < obj.sub.Count; i++)
+        if(!vocalRecordingsPanel.activeInHierarchy)
+        {
+            source.Stop();
+            if (currentSubtitleCoroutine != null)
+            {
+                StopCoroutine(currentSubtitleCoroutine);
+                currentSubtitleCoroutine = null;
+            }
+            subText.text = string.Empty;
+            currentAudioPlaying = null;
+        }
+    }
+
+    public IEnumerator TheSequence(List<Subtitles> sub)
+    {
+        for (int i = 0; i < sub.Count; i++)
         {
             if (source.isPlaying)
             {
-                subText.text = obj.sub[i].sentenceTxt;
+                subText.text = sub[i].sentenceTxt;
 
-                yield return new WaitForSeconds(obj.sub[i].sentenceTime);
+                Debug.Log(sub[i].sentenceTxt);
+                yield return new WaitForSecondsRealtime(sub[i].sentenceTime);
                 subText.text = string.Empty;
 
             }

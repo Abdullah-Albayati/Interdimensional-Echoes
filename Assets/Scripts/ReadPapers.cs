@@ -49,13 +49,13 @@ public class ReadPapers : MonoBehaviour
                     readPaperTxt.gameObject.SetActive(false);
                     if (paperScript.panelContainer.transform.GetChild(0).gameObject.activeSelf)
                     {
-                        UIManager.Instance.OpenPaperMenu();
+                        UIManager.Instance.ToggleGameUI(UIManager.UIType.Paper);
                         paperScript.LeavePaper();
                     }
                     else
                     {
 
-                    UIManager.Instance.OpenPaperMenu();
+                        UIManager.Instance.ToggleGameUI(UIManager.UIType.Paper);
                         paperScript.ReadPaper();
                     }
                 }

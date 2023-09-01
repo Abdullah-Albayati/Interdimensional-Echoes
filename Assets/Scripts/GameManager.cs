@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
 
     public bool isGamePaused = false;
-    private bool isInputDisabled = false;
+    public bool isInputDisabled = false;
     // Input axes and buttons for controlling Player
     public string jumpButton { get; private set; }
     public string crouchButton { get; private set; }
