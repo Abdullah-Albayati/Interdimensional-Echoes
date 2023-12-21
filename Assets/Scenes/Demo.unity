@@ -1727,6 +1727,10 @@ PrefabInstance:
       propertyPath: lockerSpawnPoint
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2022688305, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
+      propertyPath: speedReductionFactor
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2022688306, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -3347,6 +3351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1923663424}
   rotationSpeed: 5
+  delay: 0.2
 --- !u!1 &527966078
 GameObject:
   m_ObjectHideFlags: 0
@@ -11924,6 +11929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1923663424}
   rotationSpeed: 5
+  delay: 0.2
 --- !u!4 &1979349122 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2743514654115045427, guid: 832b31af93fb04d4a8ebad53e7e396dd,

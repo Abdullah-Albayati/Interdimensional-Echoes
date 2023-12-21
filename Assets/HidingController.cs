@@ -9,7 +9,7 @@ public class HidingController : MonoBehaviour
     public bool IsInsideLocker { get; private set; }
 
    [SerializeField] private LockerScript currentLocker;
-
+   [SerializeField] float speedReductionFactor;
     [SerializeField] GameObject player,playerHand;
     [SerializeField] float hidingDistance;
 
@@ -36,8 +36,9 @@ public class HidingController : MonoBehaviour
             if (hitObject.CompareTag("HidingLocker"))
             {
                 currentLocker = hitObject.GetComponent<LockerScript>();
-                if (Input.GetButtonDown(GameManager.instance.interactButton) && playerRigidbody.velocity.magnitude < 0.1f)
+                if (Input.GetButtonDown(GameManager.instance.interactButton))
                 {
+                    
                     StartCoroutine(EnterOrExitLocker());
                 }
             }
@@ -53,6 +54,7 @@ public class HidingController : MonoBehaviour
 
     private IEnumerator EnterOrExitLocker()
     {
+        playerRigidbody.velocity = Vector3.Lerp(playerRigidbody.velocity, Vector3.zero, Time.deltaTime * speedReductionFactor);
         GameManager.instance.isInputDisabled = true;
         yield return StartCoroutine(FadeToBlack());
         player.GetComponent<AudioSource>().PlayOneShot(lockerSound);

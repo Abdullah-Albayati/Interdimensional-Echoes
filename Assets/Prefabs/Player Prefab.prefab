@@ -4170,11 +4170,11 @@ GameObject:
   - component: {fileID: 609135230}
   - component: {fileID: 814628567830306635}
   - component: {fileID: 9059075102284901714}
+  - component: {fileID: 2022688305}
   - component: {fileID: 814628567830306640}
   - component: {fileID: 814628567830306644}
   - component: {fileID: 2022688315}
   - component: {fileID: 2022688306}
-  - component: {fileID: 2022688305}
   m_Layer: 9
   m_Name: Player Prefab
   m_TagString: Player
@@ -4362,6 +4362,25 @@ MonoBehaviour:
   inLightedArea: 0
   sanityMeter: {fileID: 9014230076113970082}
   monsterObjectTag: Monster
+--- !u!114 &2022688305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814628567830306655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55db928c07461d84395aed82fde5c7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeImage: {fileID: 2118185244}
+  currentLocker: {fileID: 0}
+  speedReductionFactor: 7
+  player: {fileID: 814628567830306655}
+  playerHand: {fileID: 3939166631156530879}
+  hidingDistance: 5
+  lockerSound: {fileID: 8300000, guid: 04618ed52a0883d4b968e57820c71757, type: 3}
 --- !u!136 &814628567830306640
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4508,24 +4527,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2022688305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 814628567830306655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55db928c07461d84395aed82fde5c7bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 2118185244}
-  currentLocker: {fileID: 0}
-  player: {fileID: 814628567830306655}
-  lockerSpawnPoint: {fileID: 0}
-  hidingDistance: 5
-  lockerSound: {fileID: 8300000, guid: 04618ed52a0883d4b968e57820c71757, type: 3}
 --- !u!1 &1229265481906965784
 GameObject:
   m_ObjectHideFlags: 0

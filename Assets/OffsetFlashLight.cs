@@ -6,8 +6,13 @@ public class OffsetFlashLight : MonoBehaviour
 {
     public Transform target;  // The hand or wherever you want the flashlight to look at.
     public float rotationSpeed = 5f;  // The speed of rotation, adjust to your liking.
-
+    public float delay = 0.2f;        // Delay in seconds before following the target rotation
+    
     private Quaternion targetRotation;
+    private Quaternion delayedRotation;
+
+
+    private FlashLight flash;
 
     private void Start()
     {
@@ -18,15 +23,24 @@ public class OffsetFlashLight : MonoBehaviour
             return;
         }
         targetRotation = target.rotation;
+        delayedRotation = targetRotation;
+        flash = GetComponent<FlashLight>();
     }
 
     private void Update()
     {
+        if(flash.isPickedUp){
+// Update the delayed rotation with a smooth interpolation towards the target rotation
+        delayedRotation = Quaternion.Lerp(delayedRotation, targetRotation, Time.deltaTime / delay);
 
-        // Interpolate rotation towards the updated target rotation.
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        // Rotate the flashlight towards the delayed rotation, creating the delay effect
+        transform.rotation = Quaternion.Lerp(transform.rotation, delayedRotation, Time.deltaTime * rotationSpeed);
 
         OnPlayerRotate();
+        }
+        else
+        return;
+        
     }
 
     // Call this method when the player or camera rotates.
