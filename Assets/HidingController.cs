@@ -17,8 +17,6 @@ public class HidingController : MonoBehaviour
     private Rigidbody playerRigidbody;
     [SerializeField] private AudioClip lockerSound;
 
-    private Transform[] lockerPoints;
-
     private void Start()
     {
         playerController = GetComponent<FirstPersonController>();
