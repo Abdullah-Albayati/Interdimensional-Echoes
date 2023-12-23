@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public string switchItemButton { get; private set; }
     public string readNotesButton { get; private set; }
     public string useItemButton { get; private set; }
+    public string flashLightButton{get; private set;}
     public string interactButton { get; private set; }
     public string openJournalButton { get; private set; }
     public string browseJournalButton { get; private set; }
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
         switchItemButton = "Switch Items";
         useItemButton = "Use Item";
         interactButton = "Interact";
+        flashLightButton = "FlashLight";
 
     }
 
@@ -92,6 +94,7 @@ public class GameManager : MonoBehaviour
             switchItemButton = "";
             useItemButton = "";
             interactButton = "";
+            flashLightButton = "";
         }
         else
         {
@@ -109,6 +112,7 @@ public class GameManager : MonoBehaviour
             switchItemButton = "Switch Items";
             useItemButton = "Use Item";
             interactButton = "Interact";
+            flashLightButton = "FlashLight";
         }
 
 

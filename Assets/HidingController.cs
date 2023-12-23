@@ -52,7 +52,7 @@ public class HidingController : MonoBehaviour
 
     private IEnumerator EnterOrExitLocker()
     {
-        playerRigidbody.velocity = Vector3.Lerp(playerRigidbody.velocity, Vector3.zero, Time.deltaTime * speedReductionFactor);
+        playerRigidbody.velocity = Vector3.zero;
         GameManager.instance.isInputDisabled = true;
         yield return StartCoroutine(FadeToBlack());
         player.GetComponent<AudioSource>().PlayOneShot(lockerSound);

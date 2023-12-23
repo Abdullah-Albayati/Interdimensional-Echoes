@@ -26,37 +26,34 @@ public class FlashLight : MonoBehaviour
 
     private void Update()
     {
+        
         isPickedUp = GetComponentInParent<PickableObject>().IsPickedUp;
 
-        UpdateBatteryPercentage();
-
-        if (isPickedUp)
-        {
-            if (Input.GetButtonDown(GameManager.instance.useItemButton))
-            {
-                if (!flashLight.isActiveAndEnabled && flashLightBattery > 0)
-                {
-                    flashLight.enabled = true;
-                }
-                else
-                {
-                    flashLight.enabled = false;
-                }
-            }
-        }
-        else
-        {
-            flashLight.enabled = false;
-        }
-
-        if (flashLightBattery == 0)
-        {
-            flashLight.enabled = false;
-        }
-
+        
         if (flashLight.enabled)
         {
+            UpdateBatteryPercentage();
             DecreaseBattery();
+        }
+
+       
+        if (isPickedUp && Input.GetButtonDown(GameManager.instance.flashLightButton))
+        {
+            flashLight.enabled = flashLightBattery > 0 && !flashLight.enabled;
+        }
+
+        
+        if (flashLightBattery < 100)
+        {
+            
+            int rand = Random.Range(0, 10); 
+            int intensity = Mathf.Clamp((int)flashLightBattery / 2 + rand, 0, 15); 
+
+            if(flashLightBattery > 0)
+            flashLight.intensity = intensity;
+            else flashLight.intensity = 0;
+            
+            
         }
     }
 
