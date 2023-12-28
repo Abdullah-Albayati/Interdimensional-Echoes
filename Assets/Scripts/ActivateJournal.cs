@@ -19,7 +19,7 @@ public class ActivateJournal : MonoBehaviour
         }
         
         
-        if (currentItem.IsPickedUp && journalController.isJournalPickedUp == false)
+        if (currentItem.isPickedUp && journalController.isJournalPickedUp == false)
         {
             journalController.isJournalPickedUp = true;
             Destroy(gameObject);

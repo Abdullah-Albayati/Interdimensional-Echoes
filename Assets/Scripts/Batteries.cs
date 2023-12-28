@@ -23,7 +23,7 @@ public class Batteries : MonoBehaviour
         if (flashLight.flashLightBattery == 100)
             return;
 
-        if (flashLight.isPickedUp && currentItem.IsPickedUp)
+        if (flashLight.isPickedUp && currentItem.isPickedUp)
         {
             if(gameObject.activeInHierarchy)
             {

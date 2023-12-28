@@ -50,7 +50,7 @@ public class PlayerPickAndPlace : MonoBehaviour
 
                      if (heldObjects.Count >= maxHeldObjects && pickableObject.canBeDropped)
                         return;
-                    if (pickableObject != null && !pickableObject.IsPickedUp)
+                    if (pickableObject != null && !pickableObject.isPickedUp)
                     {
                         // Check if the object is already in the pickableObjects list
                         if (!pickableObjects.Contains(pickableObject))
@@ -265,7 +265,7 @@ public class PlayerPickAndPlace : MonoBehaviour
             foreach (RaycastHit hit in hits)
             {
                 PickableObject pickableObject = hit.collider.GetComponent<PickableObject>();
-                if (pickableObject != null && !pickableObject.IsPickedUp)
+                if (pickableObject != null && !pickableObject.isPickedUp)
                 {
                     HighlightObject(hit.collider.gameObject);
                     SetHoverText("Press E to Pick up: " + pickableObject.item.itemName);

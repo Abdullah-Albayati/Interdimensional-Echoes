@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     private static UIManager instance;
@@ -27,6 +28,7 @@ public class UIManager : MonoBehaviour
 
     public List<GameObject> externalUI = new List<GameObject>();
     public List<GameObject> playerUi = new List<GameObject>();
+    [SerializeField] private HintBar hintbar;
 
     public enum UIType
     {
@@ -113,6 +115,26 @@ public class UIManager : MonoBehaviour
         group.alpha = 1.0f;
     }
 
+    public void ShowHintBar(string hintText,Image hintIcon)
+    {
+        hintbar.Show();
+        hintbar.SetIcon(hintIcon);
+        hintbar.SetText(hintText);
 
+        float targetTime = 3.0f;
+
+
+        targetTime -= Time.deltaTime;
+
+        if(targetTime <= 0.0f)
+        {
+            HideHintBar();
+        }
+    }
+
+    public void HideHintBar()
+    {
+        hintbar.Hide();
+    }
     
 }

@@ -25,7 +25,7 @@ public class RecordingPlayer : MonoBehaviour,IGameObserver
 
     private void Update()
     {
-        if(!hasPlayed && currentItem.IsPickedUp)
+        if(!hasPlayed && currentItem.isPickedUp)
         {
             SaveRecording();
         }

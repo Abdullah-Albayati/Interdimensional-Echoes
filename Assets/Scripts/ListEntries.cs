@@ -23,7 +23,7 @@ public class ListEntries : MonoBehaviour
 
     private void Update()
     {
-        if (recordingObj && recordingObj.IsPickedUp && Input.GetButtonDown(GameManager.instance.openVoiceRecordingsButton))
+        if (recordingObj && recordingObj.isPickedUp && Input.GetButtonDown(GameManager.instance.openVoiceRecordingsButton))
         {
             UIManager.Instance.ToggleGameUI(UIManager.UIType.VoiceRecordings);
         }

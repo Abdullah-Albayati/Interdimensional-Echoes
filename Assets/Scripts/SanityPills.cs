@@ -23,7 +23,7 @@ public class SanityPills : MonoBehaviour
         if (sanityScript.currentSanity == 100)
             return;
 
-        if (currentItem.IsPickedUp)
+        if (currentItem.isPickedUp)
         {
             if (Input.GetButtonDown(GameManager.instance.useItemButton))
             {

@@ -27,7 +27,7 @@ public class FlashLight : MonoBehaviour
     private void Update()
     {
         
-        isPickedUp = GetComponentInParent<PickableObject>().IsPickedUp;
+        isPickedUp = GetComponentInParent<PickableObject>().isPickedUp;
 
         
         if (flashLight.enabled)

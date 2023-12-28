@@ -17,7 +17,7 @@ namespace EZDoor
 
         private void Update()
         {
-            if (currentItem.IsPickedUp)
+            if (currentItem.isPickedUp)
             {
                 Pickup();
             }

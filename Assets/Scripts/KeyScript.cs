@@ -18,7 +18,7 @@ public class KeyScript : MonoBehaviour
     {
         RaycastHit hit;
 
-        if(Input.GetButtonDown(GameManager.instance.interactButton) && currentItem.IsPickedUp && gameObject.activeInHierarchy)
+        if(Input.GetButtonDown(GameManager.instance.interactButton) && currentItem.isPickedUp && gameObject.activeInHierarchy)
         {
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 3, doorLayer))
         {
