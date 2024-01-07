@@ -115,7 +115,7 @@ public class UIManager : MonoBehaviour
         group.alpha = 1.0f;
     }
 
-    public void ShowHintBar(string hintText,Image hintIcon)
+    public void ShowHintBar(string hintText, Image hintIcon)
     {
         hintbar.Show();
         hintbar.SetIcon(hintIcon);
@@ -123,14 +123,15 @@ public class UIManager : MonoBehaviour
 
         float targetTime = 3.0f;
 
-
-        targetTime -= Time.deltaTime;
-
-        if(targetTime <= 0.0f)
-        {
-            HideHintBar();
-        }
+        StartCoroutine(HideHintBarAfterDelay(targetTime));
     }
+
+    private IEnumerator HideHintBarAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        HideHintBar();
+    }
+
 
     public void HideHintBar()
     {
