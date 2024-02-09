@@ -1668,6 +1668,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1084732088}
     m_Modifications:
+    - target: {fileID: 531424869, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 694490876, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1676,9 +1680,38 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 834024410, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 875495945, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1134357378, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210464183, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663827197, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1776443327, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994421564, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 814628566937670976, guid: 782bea6a2dbc0774a8afa0680c31c8a1,
+        type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 814628567830306643, guid: 782bea6a2dbc0774a8afa0680c31c8a1,
         type: 3}
@@ -1739,6 +1772,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7014413424724536550, guid: 782bea6a2dbc0774a8afa0680c31c8a1,
+        type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 782bea6a2dbc0774a8afa0680c31c8a1, type: 3}
